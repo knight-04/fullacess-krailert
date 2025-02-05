@@ -165,7 +165,7 @@ const PurchaseOrderForm = ({ order, mode, onChange, onSubmit, handleSave }) => {
     'งานโอนแล้วรอส่งมอบ',
     'งานต่อเดิม',
     'งานแจ้งซ่อมในประกัน',
-    'งานขายและการบริการ'
+    'งานขายและบริการ'
   ];
 
 
@@ -466,7 +466,7 @@ const PurchaseOrderForm = ({ order, mode, onChange, onSubmit, handleSave }) => {
           </div>
           <div className="text-center">
             <div className="border-b pb-8 mb-2"></div>
-            <p className="text-sm">ผู้ตรวจสอบ (Site N)</p>
+            <p className="text-sm">ผู้อนุมัติ (Site N)</p>
             <p className="text-sm text-gray-600">วันที่ ___/___/___</p>
           </div>
         </div>
