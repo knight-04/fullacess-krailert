@@ -104,28 +104,6 @@ export const purchaseOrders = [
 ];
 
 
-//   export const initialFormState = {
-//     poNumber: '',
-//     date: '',
-//     project: '',
-//     supplier: '',
-//     address: '',
-//     contact: '',
-//     phone: '',
-//     dueDate: '',
-//     projectContact: '',
-//     houseplan: '',
-//     notes: '',
-//     documentType: '',
-//     items: [{ id: 1, name: '', quantity: '', unit: '', unitPrice: '', total: '' }],
-//     controllerSignature: '',
-//     controllerDate: '',
-//     purchaserSignature: '',
-//     purchaserDate: '',
-//     inspectorSignature: '',
-//     inspectorDate: '',
-//   };
-
 
 export const projectOptions = [
   { value: 'โครงการบ้านสวย 1', label: 'โครงการบ้านสวย 1' },
@@ -191,5 +169,24 @@ export const mockHousePlans = [
     houseName: 'บ้านการ์เด้น',
     planName: 'Type B - 180 sq.m.',
     address: '789/12 ถนนรามคำแหง แขวงหัวหมาก เขตบางกะปิ กรุงเทพฯ 10240'
+  }
+];
+
+export const mockVendors = [
+  {
+    id: 1,
+    name: 'หจก. รุ่งเรืองการช่าง',
+    address: '123/45 ถนนพระราม 9 แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพฯ 10310',
+    phone: '02-123-4567',
+    paymentTerms: 'เครดิต 30 วัน',
+    services: ['งานระบบไฟฟ้า', 'งานระบบประปา']
+  },
+  {
+    id: 2,
+    name: 'บริษัท พร้อมติดตั้ง จำกัด',
+    address: '89/10 ถนนวิภาวดีรังสิต แขวงจตุจักร เขตจตุจักร กรุงเทพฯ 10900',
+    phone: '02-987-6543',
+    paymentTerms: 'เครดิต 45 วัน',
+    services: ['งานติดตั้งเฟอร์นิเจอร์', 'งานตกแต่งภายใน']
   }
 ];

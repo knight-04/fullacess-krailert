@@ -4,7 +4,33 @@ import { mockProducts } from '../../mockdata/mockData';
 import { Alert, useAlert } from '../../../Toast/alert';
 import ProductForm from './product_create.jsx';
 
+const categoryOptions = [
+  'วัสดุก่อสร้าง',
+  'วัสดุไฟฟ้า',
+  'วัสดุประปา',
+  'เฟอร์นิเจอร์',
+  'อุปกรณ์ตกแต่ง',
+  'อื่นๆ'
+];
 
+const unitOptions = [
+  'ชิ้น',
+  'อัน',
+  'ชุด',
+  'กล่อง',
+  'ถุง',
+  'ม้วน',
+  'แผ่น',
+  'เมตร',
+  'ลิตร'
+];
+
+const supplierOptions = [
+  'บริษัท ไทยไฟฟ้า จำกัด',
+  'บริษัท สยามซีเมนต์ จำกัด',
+  'บริษัท วัสดุภัณฑ์ จำกัด',
+  'ห้างหุ้นส่วนจำกัด รุ่งเรืองการค้า'
+];
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -116,6 +142,57 @@ const ProductList = () => {
           เพิ่มสินค้า
         </button>
       </div>
+
+      <div className="p-4 flex flex-wrap gap-3 border-b">
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="nameSearch" className="block text-sm font-medium text-gray-700 mb-1">
+            ชื่อ Supplier
+          </label>
+          <input
+            type="text"
+            id="nameSearch"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ค้นหา..."
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            หมวดหมู่
+          </label>
+          <select
+            type="text"
+            id="maxPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="เลือกหมวดหมู่"
+          >
+            <option value="">เลือกหมวดหมู่</option>
+            {categoryOptions.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            Supplier
+          </label>
+          <select
+            type="text"
+            id="maxPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="เลือก Supplier"
+          >
+            <option value="">เลือก Supplier</option>
+            {supplierOptions.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
 
       {error && (
         <div className="p-4 text-red-600 text-center bg-red-50">
