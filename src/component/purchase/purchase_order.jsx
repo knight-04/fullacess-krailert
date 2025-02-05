@@ -171,29 +171,20 @@ const PurchaseOrderForm = ({ order, mode, onChange, onSubmit, handleSave }) => {
 
   return (
     <div className="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6">
-<<<<<<<<< Temporary merge branch 1
-      <form onSubmit={handleSave}>
-        {/* Header */}
-        <div className="flex justify-between items-start mb-3">
-          <div className="flex items-center gap-2">
-            <div className="w-32 h-32 rounded flex items-center justify-center mt-3">
-              <img src='/images/626.jpg' alt="Company Logo" className="w-full h-full object-contain" />
-            </div>
-            <div>
-              <h1 className="text-xl font-semibold mb-2">บริษัท ไกรเลิศ แลนด์ จำกัด</h1>
-              <p className="text-sm text-gray-600">7/10 ถนนสรุปราชัย แขวงดังบูรพา เขตบานนา</p>
-              <p className="text-sm text-gray-600">กรุงเทพมหานคร 10120</p>
-              <p className="text-sm text-gray-600">เลขประจำตัวผู้เสียภาษี 0105564136941</p>
-            </div>
-=========
 
       {/* Header */}
       <div className="flex justify-between items-start mb-3">
         <div className="flex items-center gap-2">
           <div className="w-32 h-32 rounded flex items-center justify-center mt-3">
             <img src='/images/626.jpg' alt="Company Logo" className="w-full h-full object-contain" />
->>>>>>>>> Temporary merge branch 2
           </div>
+          <div>
+            <h1 className="text-xl font-semibold mb-2">บริษัท ไกรเลิศ แลนด์ จำกัด</h1>
+            <p className="text-sm text-gray-600">7/10 ถนนสรุปราชัย แขวงดังบูรพา เขตบานนา</p>
+            <p className="text-sm text-gray-600">กรุงเทพมหานคร 10120</p>
+            <p className="text-sm text-gray-600">เลขประจำตัวผู้เสียภาษี 0105564136941</p>
+          </div>
+        </div>
 
           {/* Document Type Checkboxes */}
           <div className="space-y-2">
