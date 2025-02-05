@@ -176,7 +176,7 @@ const PurchaseOrderForm = ({ order, mode, onChange }) => {
       <div className="flex justify-between items-start mb-3">
         <div className="flex items-center gap-2">
           <div className="w-32 h-32 rounded flex items-center justify-center mt-3">
-            <img src='/images/Logo/Real/626.jpg' alt="Company Logo" className="w-full h-full object-contain" />
+            <img src='/images/626.jpg' alt="Company Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <h1 className="text-xl font-semibold mb-2">บริษัท ไกรเลิศ แลนด์ จำกัด</h1>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, Edit, Plus, Trash2, Package } from 'lucide-react';
+import { Eye, Edit, Plus, Trash2, Package, Search } from 'lucide-react';
 import ItemSetForm from './item_create';
 import { Alert, useAlert } from '../../../Toast/alert';
 
@@ -37,6 +37,7 @@ const ItemSetList = () => {
   const [mode, setMode] = useState('view');
   const { alert, showAlert } = useAlert();
 
+
   const fetchItemSets = async () => {
     try {
       setLoading(true);
@@ -55,6 +56,7 @@ const ItemSetList = () => {
   useEffect(() => {
     fetchItemSets();
   }, []);
+
 
   const handleView = (itemSet) => {
     setSelectedItemSet(JSON.parse(JSON.stringify(itemSet)));
@@ -139,6 +141,42 @@ const ItemSetList = () => {
         </button>
       </div>
 
+      <div className="p-4 flex flex-wrap gap-3 border-b">
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="nameSearch" className="block text-sm font-medium text-gray-700 mb-1">
+            ชื่อชุดอุปกรณ์
+          </label>
+          <input
+            type="text"
+            id="nameSearch"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ค้นหาตามชื่อ..."
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            ราคาต่ำสุด
+          </label>
+          <input
+            type="number"
+            id="minPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="0"
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            ราคาสูงสุด
+          </label>
+          <input
+            type="number"
+            id="maxPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ไม่จำกัด"
+          />
+        </div>
+      </div>
+
       {error && (
         <div className="p-4 text-red-600 text-center bg-red-50">
           {error}
@@ -179,7 +217,7 @@ const ItemSetList = () => {
                 </td> */}
                 <td className="px-6 py-4 text-sm text-gray-900">
                   <div className="flex items-center gap-2">
-                    <Package size={20} className="text-gray-400" />
+                    {/* <Package size={20} className="text-gray-400" /> */}
                     {itemSet.name}
                   </div>
                 </td>

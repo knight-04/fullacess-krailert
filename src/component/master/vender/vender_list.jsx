@@ -2,26 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Eye, Edit, Plus, Trash2, Tags } from 'lucide-react';
 import VendorForm from './vender_create';
 import { Alert, useAlert } from '../../../Toast/alert';
+import { mockVendors } from '../../mockdata/mockData';
 
-// Mock data
-const mockVendors = [
-  {
-    id: 1,
-    name: 'หจก. รุ่งเรืองการช่าง',
-    address: '123/45 ถนนพระราม 9 แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพฯ 10310',
-    phone: '02-123-4567',
-    paymentTerms: 'เครดิต 30 วัน',
-    services: ['งานระบบไฟฟ้า', 'งานระบบประปา']
-  },
-  {
-    id: 2,
-    name: 'บริษัท พร้อมติดตั้ง จำกัด',
-    address: '89/10 ถนนวิภาวดีรังสิต แขวงจตุจักร เขตจตุจักร กรุงเทพฯ 10900',
-    phone: '02-987-6543',
-    paymentTerms: 'เครดิต 45 วัน',
-    services: ['งานติดตั้งเฟอร์นิเจอร์', 'งานตกแต่งภายใน']
-  }
+const paymentTermsOptions = [
+  'เงินสด',
+  'เครดิต 7 วัน',
+  'เครดิต 15 วัน',
+  'เครดิต 30 วัน',
+  'เครดิต 45 วัน',
+  'เครดิต 60 วัน'
 ];
+
 
 const VendorList = () => {
   const [vendors, setVendors] = useState([]);
@@ -132,6 +123,49 @@ const VendorList = () => {
           <Plus size={16} />
           เพิ่ม Vendor
         </button>
+      </div>
+
+      <div className="p-4 flex flex-wrap gap-3 border-b">
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="nameSearch" className="block text-sm font-medium text-gray-700 mb-1">
+            ชื่อ Vendor
+          </label>
+          <input
+            type="text"
+            id="nameSearch"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ค้นหา..."
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            เบอร์โทร
+          </label>
+          <input
+            type="text"
+            id="minPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="02-xxx-xxxx"
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            เงื่อนไขการชำระเงิน
+          </label>
+          <select
+            type="number"
+            id="maxPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ไม่จำกัด"
+          >
+            <option value="">เลือกเงื่อนไขการชำระเงิน</option>
+            {paymentTermsOptions.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {error && (

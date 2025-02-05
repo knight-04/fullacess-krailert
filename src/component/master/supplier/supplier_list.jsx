@@ -4,6 +4,15 @@ import SupplierForm from './supplier_create';
 import { Alert, useAlert } from '../../../Toast/alert';
 import { mockSuppliers } from '../../mockdata/mockData';
 
+const paymentTermsOptions = [
+  'เงินสด',
+  'เครดิต 7 วัน',
+  'เครดิต 15 วัน',
+  'เครดิต 30 วัน',
+  'เครดิต 45 วัน',
+  'เครดิต 60 วัน'
+];
+
 
 const SupplierList = () => {
   const [suppliers, setSuppliers] = useState([]);
@@ -114,6 +123,49 @@ const SupplierList = () => {
           <Plus size={16} />
           เพิ่ม Supplier
         </button>
+      </div>
+
+      <div className="p-4 flex flex-wrap gap-3 border-b">
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="nameSearch" className="block text-sm font-medium text-gray-700 mb-1">
+            ชื่อ Supplier
+          </label>
+          <input
+            type="text"
+            id="nameSearch"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ค้นหา..."
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            เบอร์โทร
+          </label>
+          <input
+            type="text"
+            id="minPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="02-xxx-xxxx"
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            เงื่อนไขการชำระเงิน
+          </label>
+          <select
+            type="number"
+            id="maxPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ไม่จำกัด"
+          >
+            <option value="">เลือกเงื่อนไขการชำระเงิน</option>
+            {paymentTermsOptions.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {error && (

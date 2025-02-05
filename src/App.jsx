@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import HomePage from './pages/home';
 import LoginPage from './pages/login';
-import AdminPage from './pages/admin';
+import AdminPage from './pages/home';
 import ProtectedRoute from './authen/auth';
 
 const App = () => {

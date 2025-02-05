@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, Edit, Plus, BookCheck, FileCheck, Delete, Trash2 } from 'lucide-react';
+import { Eye, Edit, Plus, BookCheck, FileCheck, Delete, Trash2, Hourglass, CalendarClock, ClockAlert, ListCheck } from 'lucide-react';
 import PurchaseOrderForm from './purchase_order';
 import PurchaseOrderPreview from './purchase_preview';
 import { purchaseOrders } from '../mockdata/mockData';
@@ -287,11 +287,11 @@ const PurchaseOrderList = () => {
 
       <div className="p-4 flex gap-2 border-b">
         {[
-          { key: 'all', label: 'ทั้งหมด' },
-          { key: 'ใกล้ครบกำหนด', label: 'ใกล้ครบกำหนด' },
-          { key: 'ครบกำหนดแล้ว', label: 'ครบกำหนดแล้ว' },
-          { key: 'ยังไม่ครบกำหนด', label: 'ยังไม่ครบกำหนด' }
-        ].map(({ key, label }) => {
+          { key: 'all', label: 'ทั้งหมด', icon : <ListCheck size={16} /> },
+          { key: 'ใกล้ครบกำหนด', label: 'ใกล้ครบกำหนด', icon: <CalendarClock size={16} /> },
+          { key: 'ครบกำหนดแล้ว', label: 'ครบกำหนดแล้ว', icon: <ClockAlert size={16} /> },
+          { key: 'ยังไม่ครบกำหนด', label: 'ยังไม่ครบกำหนด', icon: <Hourglass size={16} /> },
+        ].map(({ key, label, icon }) => {
           const count = getStatusCounts()[key] || 0;
           return (
             <button
@@ -302,6 +302,7 @@ const PurchaseOrderList = () => {
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
             >
+              {icon}
               {label}
               <span className={`px-2 py-0.5 rounded-full text-xs
                 ${statusFilter === key
@@ -342,10 +343,10 @@ const PurchaseOrderList = () => {
                 Supplier
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                สถานะการชำระเงิน
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 ยอดรวม
+              </th>
+              <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                สถานะการชำระเงิน
               </th>
               <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                 ใบรับสินค้า
@@ -378,26 +379,28 @@ const PurchaseOrderList = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {order.supplier}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                    ${order.status === 'ใกล้ครบกำหนด' ? 'bg-green-100 text-green-800' :
-                      order.status === 'ครบกำหนดแล้ว' ? 'bg-red-100 text-yellow-800' :
-                        'bg-yellow-100 text-yellow-800'}`}>
-                    {order.status === 'ใกล้ครบกำหนด' ? 'ใกล้ครบกำหนด' :
-                      order.status === 'ครบกำหนดแล้ว' ? 'ครบกำหนดแล้ว' :
-                        'ยังไม่ครบกำหนด'}
-                  </span>
-                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {order.total?.toLocaleString('th-TH', {
                     style: 'currency',
                     currency: 'THB'
                   })}
                 </td>
+                <td className="px-6 py-4 whitespace-nowrap text-center">
+                  {/* <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                    ${order.status === 'ใกล้ครบกำหนด' ? 'bg-green-100' :
+                      order.status === 'ครบกำหนดแล้ว' ? 'bg-red-100' :
+                        'bg-yellow-100 text-yellow-800'}
+                        `}> */}
+                  <span className='px-2 inline-flex text-xs leading-5 font-semibold rounded-full'>
+                    {order.status === 'ใกล้ครบกำหนด' ? <div><CalendarClock size={16} className='text-blue-500' /></div> :
+                      order.status === 'ครบกำหนดแล้ว' ? <div><ClockAlert size={16} className='text-red-500' /></div> :
+                        <div><Hourglass size={16} className='text-yellow-500' /></div>}
+                  </span>
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                   <button
                     onClick={() => handleShowReceipt(order)}
-                    className="text-green-600 hover:text-green-900"
+                    className="text-green-600 hover:text-green-800"
                   >
                     <FileCheck size={16} />
                   </button>

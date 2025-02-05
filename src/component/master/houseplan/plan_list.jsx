@@ -4,6 +4,14 @@ import HousePlanForm from './plan_create';
 import { Alert, useAlert } from '../../../Toast/alert';
 import { mockHousePlans } from '../../mockdata/mockData';
 
+const planOptions = [
+  'Type A - 150 sq.m.',
+  'Type B - 180 sq.m.',
+  'Type C - 200 sq.m.',
+  'Type D - 250 sq.m.'
+];
+
+
 const HousePlanList = () => {
   const [housePlans, setHousePlans] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -113,6 +121,49 @@ const HousePlanList = () => {
           <Plus size={16} />
           เพิ่มแปลนบ้าน
         </button>
+      </div>
+
+      <div className="p-4 flex flex-wrap gap-3 border-b">
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="nameSearch" className="block text-sm font-medium text-gray-700 mb-1">
+            โครงการ
+          </label>
+          <input
+            type="text"
+            id="nameSearch"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ค้นหา..."
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="minPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            ชื่อบ้าน
+          </label>
+          <input
+            type="text"
+            id="minPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ค้นหา..."
+          />
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label htmlFor="maxPrice" className="block text-sm font-medium text-gray-700 mb-1">
+            แปลนบ้าน
+          </label>
+          <select
+            type="number"
+            id="maxPrice"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="ไม่จำกัด"
+          >
+            <option value="">เลือกแปลนบ้าน</option>
+            {planOptions.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {error && (
