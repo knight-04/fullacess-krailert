@@ -1,7 +1,13 @@
-import React from 'react';
-import { Check, X } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Check, X, Download } from 'lucide-react';
+import html2pdf from 'html2pdf.js';
+import { exportToPDF } from './pdfUtil';
+import PurchaseOrderPDF from './purchase_pdf';
 
 const PurchaseOrderPreview = ({ data, onClose, onConfirm, saving, hideActions = false }) => {
+    const contentRef = useRef(null);
+    const printContentRef = useRef(null);
+
     const calculateSubTotal = () => {
         return data.items.reduce((sum, item) => sum + (parseFloat(item.total) || 0), 0);
     };
@@ -14,51 +20,71 @@ const PurchaseOrderPreview = ({ data, onClose, onConfirm, saving, hideActions = 
         return calculateSubTotal() + calculateVat();
     };
 
+    const handleExportPDF = async () => {
+        try {
+            await exportToPDF(printContentRef.current, data.poNumber);
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-lg shadow-lg w-full max-w-5xl max-h-[90vh] overflow-y-auto">
+            <div ref={contentRef} className="bg-white rounded-lg shadow-lg w-full max-w-5xl max-h-[90vh] overflow-y-auto">
                 <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
                     <h3 className="text-lg font-semibold">
                         {hideActions ? <div>ใบสั่งซื้อ : {data.poNumber}</div> : 'ตัวอย่างใบสั่งซื้อ'}
                     </h3>
-                    {!hideActions && (
-                        <div className="flex gap-2">
-                            <button
-                                onClick={onClose}
-                                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border rounded"
-                                disabled={saving}
-                            >
-                                ยกเลิก
-                            </button>
+                    <div className="flex gap-2">
+                        {!hideActions ? (
+                            <>
+                                <button
+                                    onClick={onClose}
+                                    className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 border rounded"
+                                    disabled={saving}
+                                >
+                                    ยกเลิก
+                                </button>
 
-                            <button
-                                onClick={onConfirm}
-                                disabled={saving}
-                                className={`px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded flex items-center gap-2
-                  ${saving ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            >
-                                {saving ? (
-                                    <>
-                                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                        กำลังบันทึก...
-                                    </>
-                                ) : (
-                                    <>
-                                        <Check size={16} />
-                                        ยืนยันการบันทึก
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                    )}
-                    {hideActions && (
-                        <button
-                            onClick={onClose}
-                            className="p-2 hover:bg-gray-100 rounded-full"
-                        >
-                            <X size={20} />
-                        </button>
-                    )}
+                                <button
+                                    onClick={onConfirm}
+                                    disabled={saving}
+                                    className={`px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded flex items-center gap-2
+                                    ${saving ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                >
+                                    {saving ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                            กำลังบันทึก...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Check size={16} />
+                                            ยืนยันการบันทึก
+                                        </>
+                                    )}
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    onClick={handleExportPDF}
+                                    className="px-4 py-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded flex items-center gap-2"
+                                >
+                                    <Download size={16} />
+                                    Export PDF
+                                </button>
+                                <button
+                                    onClick={onClose}
+                                    className="p-2 hover:bg-gray-100 rounded-full"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </>
+                        )}
+
+
+                    </div>
                 </div>
 
 
@@ -123,7 +149,7 @@ const PurchaseOrderPreview = ({ data, onClose, onConfirm, saving, hideActions = 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="text-sm text-gray-600">วันที่</label>
-                                    <div className="p-2 bg-gray-50 rounded">{data.date || '-'}</div>
+                                    <div className="p-2 bg-gray-50 rounded">{new Date(data.date).toLocaleDateString('th-TH') || '-'}</div>
                                 </div>
                                 <div>
                                     <label className="text-sm text-gray-600">เลขที่ PO</label>
@@ -139,7 +165,7 @@ const PurchaseOrderPreview = ({ data, onClose, onConfirm, saving, hideActions = 
                                 </div>
                                 <div>
                                     <label className="text-sm text-gray-600">วันกำหนดส่ง</label>
-                                    <div className="p-2 bg-gray-50 rounded">{data.dueDate || '-'}</div>
+                                    <div className="p-2 bg-gray-50 rounded">{new Date(data.dueDate).toLocaleDateString('th-TH') || '-'}</div>
                                 </div>
                                 <div>
                                     <label className="text-sm text-gray-600">ติดต่อ</label>
@@ -236,6 +262,17 @@ const PurchaseOrderPreview = ({ data, onClose, onConfirm, saving, hideActions = 
                             <p className="text-sm text-gray-600">วันที่ {data.inspectorDate || '___/___/___'}</p>
                         </div>
                     </div>
+                </div>
+
+                {/* Hidden PDF content */}
+                <div className="hidden">
+                    <PurchaseOrderPDF
+                        ref={printContentRef}
+                        data={data}
+                        calculateSubTotal={calculateSubTotal}
+                        calculateVat={calculateVat}
+                        calculateTotal={calculateTotal}
+                    />
                 </div>
             </div>
         </div >
